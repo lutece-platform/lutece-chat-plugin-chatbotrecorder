@@ -1,0 +1,25 @@
+<#include "chatbotrecordermanager_tabs.html" />
+<@tabs2 tab="conversation" />
+<@box>
+	<@boxHeader title='#i18n{chatbotrecorder.modify_conversation.title}' />
+	<@boxBody>
+		<@tform class="form-horizontal" method="post" name="modify_conversation"
+			action="jsp/admin/plugins/chatbotrecorder/ManageConversations.jsp">
+			<@messages errors=errors />
+			<@input type="hidden" id="id" name="id" value="${conversation.id}" />
+			<@formGroup labelKey='#i18n{chatbotrecorder.modify_conversation.labelUserMsg}'
+				helpKey='#i18n{chatbotrecorder.modify_conversation.labelUserMsg.help}'>
+				<@input type='text' name='user_msg' value='${conversation.userMsg}' />
+			</@formGroup>
+			<@formGroup labelKey='#i18n{chatbotrecorder.modify_conversation.labelBotResponse}'
+				helpKey='#i18n{chatbotrecorder.modify_conversation.labelBotResponse.help}'>
+				<@input type='text' name='bot_response' value='${conversation.botResponse}' />
+			</@formGroup>
+			<@formGroup labelKey='#i18n{chatbotrecorder.modify_conversation.labelIdScenario}'
+				helpKey='#i18n{chatbotrecorder.modify_conversation.labelIdScenario.help}'>
+				<@input type='text' name='id_scenario' value='${conversation.idScenario}' />
+			</@formGroup>
+			<@actionButtons button1Name="action_modifyConversation" button2Name="view_manageConversation" />
+		</@tform>
+	</@boxBody>
+</@box>

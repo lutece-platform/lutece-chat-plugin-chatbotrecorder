@@ -1,0 +1,57 @@
+<@box>
+    <@boxHeader title='Liste des enregistrements <small>(${scenario})</small>' boxTools=true>
+    </@boxHeader>
+    <@boxBody>
+        <@messages infos=infos />
+        <@table>
+            <@tr>
+                <@th>#i18n{chatbotrecorder.manage_replays.columnName}</@th>
+                <@th>Version</@th>
+                <@th>#i18n{chatbotrecorder.manage_replays.columnLastRun}</@th>
+                <@th>#i18n{chatbotrecorder.manage_replays.columnNbrErr}</@th>
+                <@th>#i18n{chatbotrecorder.manage_replays.columnStatus}</@th>
+                <@th>#i18n{portal.util.labelActions}</@th>
+            </@tr>
+            <@tableHeadBodySeparator />
+            <#list replay_list as replay>
+                <@tr>
+                    <@td>
+                        Enregistrement #${replay.id}
+                    </@td>
+                    <@td>
+                        <#if replay.version=0>
+                            Version initale
+                            <#else>
+                                Enregistrement #${replay.version!''}
+                        </#if>
+                    </@td>
+                    <@td>
+                        ${replay.lastRun}
+                    </@td>
+                    <@td>
+                        <#if replay.nbrErr=0>
+                            <span class="text-success"> <b>${replay.nbrErr}</b> </span>
+                            <#else>
+                                <span class="text-danger"> <b>${replay.nbrErr}</b> </span>
+                        </#if>
+                    </@td>
+                    <@td>
+                        <#if replay.status=0>
+                            <@tag color='success'>OK</@tag>
+                                    <#else>
+                                        <@tag color='danger'>KO</@tag>
+                        </#if>
+                    </@td>
+                    <@td>
+                        <@aButton
+                            href='jsp/admin/plugins/chatbotrecorder/ManageReplayConversations.jsp?view=showReplayConversation&id=${replay.id}'
+                            buttonIcon='eye' />
+                        <@aButton
+                            href='jsp/admin/plugins/chatbotrecorder/ManageReplays.jsp?action=confirmRemoveReplay&id=${replay.id}'
+                            buttonIcon='trash' color='danger' />
+                    </@td>
+                </@tr>
+            </#list>
+        </@table>
+    </@boxBody>
+</@box>

@@ -1,0 +1,128 @@
+<@box>
+	<@boxHeader title='#i18n{chatbotrecorder.create_scenario.title}' />
+	<@boxBody>
+		<@tform name='create_scenario' action='jsp/admin/plugins/chatbotrecorder/ManageScenarios.jsp'>
+			<@messages errors=errors />
+			<@input type='hidden' name='key_chatbot' value='${scenario.chatBotKey}' />
+			<@formGroup labelKey='#i18n{chatbotrecorder.create_scenario.labelName}' mandatory=true>
+				<@input type='text' name='name' value='${scenario.name!\' \'}' />
+			</@formGroup>
+			<@formGroup labelKey='#i18n{chatbotrecorder.create_scenario.labelDescription}'>
+				<@input type='text' name='description' value='${scenario.description!\' \'}' />
+			</@formGroup>
+			<@formGroup labelKey='Conversation' helpKey='' mandatory=true>
+				<#if posts_list??>
+					<div id="chatBotInnerContainer" style="border:1px solid #eee">
+						<div id="chatContainer">
+							<!--Liste des Posts-->
+							<div class="direct-chat-messages">
+								<#list posts_list as post>
+									<div class="chatBox">
+										<#if post.author!=1><img src="images/logo-header-icon.png" class="botAvatar"
+												alt="avatar" title=""></#if>
+										<#if post.content?has_content>
+											<div class="bubble <#if post.author==1>bubble-alt</#if>">
+												<#if post.contentType=="text">
+													<#if (post_index+1)==posts_list?size>
+														<#if typed_script??>
+															<span id="typed"></span>
+															<#else>
+																<span class="sr-only">Loading...</span>
+																<span class="fade-in-post"> ${post.content} </span>
+														</#if>
+														<#else>
+															${post.content}
+													</#if>
+													<#else>
+														${post.content}
+												</#if>
+											</div>
+										</#if>
+									</div>
+								</#list>
+							</div>
+						</div>
+				</#if>
+				<div class="input-group">
+					<input id="response" type="text" name="response" class="form-control input-sm" autocomplete="off">
+					<span class="input-group-btn">
+						<button class="btn btn-primary btn-sm" id="sendChat" name="action_createScenario"
+							value="chatBot" type="submit">
+							<i class="fa fa-comment"></i>
+							<span class="hidden-xs">Envoyer</span>
+						</button>
+					</span>
+				</div>
+			</@formGroup>
+			<@actionButtons button1Name="action_createScenario" button2Name="view_manageScenario" />
+		</@tform>
+	</@boxBody>
+</@box>
+<link href="css/plugins/chatbot/chatbot.css" rel="stylesheet" type="text/css" media="screen">
+<style>
+	#chatBotInnerContainer {
+		border: 0px solid #d2d6de;
+		margin-bottom: 30px;
+		box-shadow: 0px 10px 18px 0px #dcdcdc;
+	}
+
+	#chatContainer {
+		min-height: 280px;
+	}
+
+	.direct-chat-messages {
+		-webkit-transform: translate(0, 0);
+		-ms-transform: translate(0, 0);
+		-o-transform: translate(0, 0);
+		transform: translate(0, 0);
+		padding: 10px;
+		min-height: 250px;
+		height: auto;
+		overflow: auto;
+	}
+
+	.bubble.danger {
+		background: #f71251;
+		color: #fff;
+		border: 0px;
+	}
+
+	.bubble.danger:before {
+		border: 10px solid transparent;
+		border-bottom-color: #f71251;
+		bottom: 0px;
+		left: -7px;
+		z-index: -2;
+	}
+
+	.bubble.success:after {
+		content: "\f058 ";
+		font-family: "fontAwesome";
+		position: absolute;
+		color: rgb(0, 180, 150);
+		font-size: 18px;
+		text-transform: uppercase;
+		right: -9px;
+		top: calc(50% - 13px);
+		font-weight: bold;
+	}
+
+	.bubble .btn {
+		margin: 5px;
+	}
+</style>
+<script>
+	window.scrollTo(0, document.body.scrollHeight);
+	const bubbleInputHidden = document.querySelectorAll('#chatContainer input');
+	bubbleInputHidden && bubbleInputHidden.forEach(element => {
+		element.remove();
+	});
+	const bubbleBtn = document.querySelectorAll('.chatBox button');
+	bubbleBtn && bubbleBtn.forEach(element => {
+		element.addEventListener('click', event => {
+			event.preventDefault();
+			document.getElementById("response").value = event.target.value;
+			document.getElementById('sendChat').click();
+		});
+	});
+</script>

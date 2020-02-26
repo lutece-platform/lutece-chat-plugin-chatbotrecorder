@@ -1,0 +1,36 @@
+<@box>
+    <div class="box-header with-border">
+        <h2 class="box-title">Liste des chatbots</h2>
+    </div>
+    <@boxBody>
+        <@table>
+            <@tr>
+                <@th>Logo</@th>
+                <@th>Nom</@th>
+                <@th>Description</@th>
+                <@th>Langue</@th>
+                <@th>Action</@th>
+            </@tr>
+            <@tableHeadBodySeparator />
+            <#list bots_list as bot>
+                <@tr>
+                    <@td>
+                        <img src="${bot.avatarUrl!''}" class="botIcon" alt="bot avatar" width="20px" />
+                    </@td>
+                    <@td>
+                        <strong>${bot.name!'bot name missing'}</strong>
+                    </@td>
+                    <@td>
+                        ${bot.description!'bot description missing'}
+                    </@td>
+                    <@td>
+                        ${bot.language!'bot language missing'}
+                    </@td>
+                    <@td>
+                        <@aButton href="${bot.url}" buttonIcon='eye' />
+                    </@td>
+                </@tr>
+            </#list>
+        </@table>
+    </@boxBody>
+</@box>

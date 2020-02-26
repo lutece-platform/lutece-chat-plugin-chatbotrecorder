@@ -1,0 +1,76 @@
+<@box>
+    <@boxHeader title='Liste des scenarios ${bot}' boxTools=true>
+        <@tform class='form-inline pull-right' name='manage_scenario'
+            action='jsp/admin/plugins/chatbotrecorder/ManageScenarios.jsp'>
+            <#if scenario_list?has_content>
+                <#assign i=scenario_list?size>
+                    <#if i gt 1>
+                        <@button type='submit' name='action_startRunAllScenarios' color='btn-success' buttonIcon='play'
+                            title='Jouer tous les scenarios ' />
+                    </#if>
+            </#if>
+            <@button type='submit' name='view_createScenario' value='resetSession' buttonIcon='plus'
+                title='#i18n{chatbotrecorder.manage_scenarios.buttonAdd}' />
+        </@tform>
+    </@boxHeader>
+    <@boxBody>
+        <@messages infos=infos />
+        <@messages errors=errors />
+        <div class="clearfix"></div>
+        <@table>
+            <@tr>
+                <input type="hidden" id="id" name="id" />
+                <@th>#i18n{chatbotrecorder.manage_scenarios.columnName}</@th>
+                <@th>#i18n{chatbotrecorder.manage_scenarios.columnDescription}</@th>
+                <@th>#i18n{chatbotrecorder.manage_scenarios.columnLastRun}</@th>
+                <@th>Version</@th>
+                <@th>#i18n{chatbotrecorder.manage_scenarios.columnStatus}</@th>
+                <@th>#i18n{portal.util.labelActions}</@th>
+            </@tr>
+            <@tableHeadBodySeparator />
+            <#list scenario_list as scenario>
+                <@tr>
+                    <input type="hidden" id="id" name="id" />
+                    <@td>
+                        ${scenario.name!''}
+                    </@td>
+                    <@td>
+                        ${scenario.description!''}
+                    </@td>
+                    <@td>
+                        ${scenario.lastRun!''}
+                    </@td>
+                    <@td>
+                        <#if scenario.version=0>
+                        <label class="label">#i18n{chatbotrecorder.commons.initialVersion}</label>
+                        <#else>
+                            <label class="label">#i18n{chatbotrecorder.commons.record.label}
+                                #${scenario.version!''}</label>
+                        </#if>
+                    </@td>
+                    <@td>
+                        <#if scenario.status=0>
+                        <@tag color='success'>OK</@tag>
+                        <#else>
+                            <@tag color='danger'>KO</@tag>
+                        </#if>
+                    </@td>
+                    <@td>
+                        <@aButton
+                            href='jsp/admin/plugins/chatbotrecorder/ManageScenarios.jsp?action=runScenario&id=${scenario.id}'
+                            buttonIcon='play' color='success' />
+                        <@aButton
+                            href='jsp/admin/plugins/chatbotrecorder/ManageReplays.jsp?view=viewReplays&id=${scenario.id}'
+                            buttonIcon='video-camera' />
+                        <@aButton
+                            href='jsp/admin/plugins/chatbotrecorder/ManageScenarios.jsp?view=modifyScenario&id=${scenario.id}'
+                            buttonIcon='pencil' />
+                        <@aButton
+                            href='jsp/admin/plugins/chatbotrecorder/ManageScenarios.jsp?action=confirmRemoveScenario&id=${scenario.id}'
+                            buttonIcon='trash' color='danger' />
+                    </@td>
+                </@tr>
+            </#list>
+        </@table>
+    </@boxBody>
+</@box>

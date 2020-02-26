@@ -1,0 +1,28 @@
+<#include "chatbotrecordermanager_tabs.html" />
+<@tabs2 tab="replayconversation" />
+<@box>
+	<@boxHeader title='#i18n{chatbotrecorder.create_replayconversation.title}' />
+	<@boxBody>
+		<@tform name='create_replayconversation'
+			action='jsp/admin/plugins/chatbotrecorder/ManageReplayConversations.jsp'>
+			<@messages errors=errors />
+			<@formGroup labelKey='#i18n{chatbotrecorder.create_replayconversation.labelUserMsg}'
+				helpKey='#i18n{chatbotrecorder.create_replayconversation.labelUserMsg.help}'>
+				<@input type='text' name='user_msg' value='${replayconversation.userMsg!\' \'}' />
+			</@formGroup>
+			<@formGroup labelKey='#i18n{chatbotrecorder.create_replayconversation.labelBotResponse}'
+				helpKey='#i18n{chatbotrecorder.create_replayconversation.labelBotResponse.help}'>
+				<@input type='text' name='bot_response' value='${replayconversation.botResponse!\' \'}' />
+			</@formGroup>
+			<@formGroup labelKey='#i18n{chatbotrecorder.create_replayconversation.labelStatus}'
+				helpKey='#i18n{chatbotrecorder.create_replayconversation.labelStatus.help}'>
+				<@input type='text' name='status' value='${replayconversation.status!\' \'}' />
+			</@formGroup>
+			<@formGroup labelKey='#i18n{chatbotrecorder.create_replayconversation.labelIdReplay}'
+				helpKey='#i18n{chatbotrecorder.create_replayconversation.labelIdReplay.help}'>
+				<@input type='text' name='id_replay' value='${replayconversation.idReplay!\' \'}' />
+			</@formGroup>
+			<@actionButtons button1Name="action_createReplayConversation" button2Name="view_manageReplayConversation" />
+		</@tform>
+	</@boxBody>
+</@box>

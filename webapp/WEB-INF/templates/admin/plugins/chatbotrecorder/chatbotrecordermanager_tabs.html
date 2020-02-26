@@ -1,0 +1,14 @@
+<#macro tabs2 tab>
+	<@tabs>
+		<@tabLink>
+			<li <#if tab="preview">class="active"</#if>>
+				<a
+					href="jsp/admin/plugins/chatbotrecorder/ManageReplayConversations.jsp?view=showReplayConversation&id=${replay.id}&preview">#i18n{chatbotrecorder.show_replay.preview}</a>
+			</li>
+			<li <#if tab="result">class="active"</#if>>
+				<a
+					href="jsp/admin/plugins/chatbotrecorder/ManageReplayConversations.jsp?view=showReplayConversation&id=${replay.id}">#i18n{chatbotrecorder.show_replay.result}</a>
+			</li>
+		</@tabLink>
+	</@tabs>
+</#macro>

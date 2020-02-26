@@ -1,0 +1,66 @@
+<@box>
+    <@boxHeader title='#i18n{chatbotrecorder.create_replay.pageTitle} #${replay.id}'>
+        <@tform class='form-inline pull-right' name='manage_replayconversation'
+            action='jsp/admin/plugins/chatbotrecorder/ManageScenarios.jsp?id=${replay.id}'>
+            <#if replay.status!=0>
+                <@button type='submit' name='action_addVersion' color='success' buttonIcon='check'
+                    title='#i18n{chatbotrecorder.show_replay.addVersion}' />
+            </#if>
+        </@tform>
+    </@boxHeader>
+    <@boxBody>
+        <@messages infos=infos />
+        <table class="table">
+            <thead>
+                <@tr>
+                    <@th>#i18n{chatbotrecorder.show_replay.question}</@th>
+                    <@th>#i18n{chatbotrecorder.show_replay.userResponse}</@th>
+                    <@th>#i18n{chatbotrecorder.show_replay.botResponse}</@th>
+                    <@th>#i18n{chatbotrecorder.manage_scenarios.columnStatus}</@th>
+                </@tr>
+            </thead>
+            <tbody>
+                <#list req as test>
+                    <@tr>
+                        <@td>
+                            ${test.question}
+                        </@td>
+                        <@td class='chat'>
+                            ${test.reponse!'null'}
+                        </@td>
+                        <@td class='chat'>
+                            <#if test.status=1> <strong>${test.currentResponse!'null'}</strong>
+                                <#else>
+                                    ${test.currentResponse}
+                            </#if>
+                        </@td>
+                        <@td>
+                            <#if test.status=0>
+                                <@tag color='success'>OK</@tag>
+                                <#else>
+                                    <@tag color='danger'>KO</@tag>
+                            </#if>
+                        </@td>
+                    </@tr>
+                </#list>
+            </tbody>
+        </table>
+    </@boxBody>
+</@box>
+<style>
+    .chat button {
+        margin: 2px;
+        font-size: 12px;
+    }
+    .chat br {
+        display: none;
+    }
+</style>
+<script>
+    const responseBtn = document.querySelectorAll('.chat button');
+    responseBtn && responseBtn.forEach(element => {
+        element.addEventListener('click', event => {
+            event.preventDefault();
+        });
+    });
+</script>

@@ -1,0 +1,31 @@
+<#include "chatbotrecordermanager_tabs.html" />
+<@box>
+	<@boxHeader title='#i18n{chatbotrecorder.modify_scenario.title}' />
+	<@boxBody>
+		<@tform class="form-horizontal" method="post" name="modify_scenario"
+			action="jsp/admin/plugins/chatbotrecorder/ManageScenarios.jsp">
+			<@messages errors=errors />
+			<@input type="hidden" id="id" name="id" value="${scenario.id}" />
+			<@formGroup labelKey='#i18n{chatbotrecorder.modify_scenario.labelName}'>
+				<@input type='text' name='name' value='${scenario.name}' />
+			</@formGroup>
+			<@formGroup labelKey='#i18n{chatbotrecorder.modify_scenario.labelDescription}'>
+				<@input type='text' name='description' value='${scenario.description}' />
+			</@formGroup>
+			<@formGroup labelKey='Version'>
+						<div class="input-group">
+							<@select name='version' id='version' default_value='${scenario.version}'
+								items=list_versions />
+							<div class="input-group-btn">
+								<button class="btn btn-primary" name="action_modifyScenario" value="newVersion"
+									type="submit">
+									<i class="fa fa-add"></i>
+									<span class="hidden-xs">Ajouter une nouvelle version</span>
+								</button>
+							</div>
+						</div>
+			</@formGroup>
+			<@actionButtons button1Name="action_modifyScenario" button2Name="view_manageScenario" />
+		</@tform>
+	</@boxBody>
+</@box>

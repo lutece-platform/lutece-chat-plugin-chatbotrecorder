@@ -1,0 +1,50 @@
+<#include "chatbotrecordermanager_tabs.html" />
+<@tabs2 tab="replayconversation" />
+<@box>
+    <@boxHeader title='#i18n{chatbotrecorder.manage_replayconversation.title}' boxTools=true>
+        <@tform class='form-inline pull-right' name='manage_replayconversation'
+            action='jsp/admin/plugins/chatbotrecorder/ManageReplayConversations.jsp'>
+            <@button type='submit' name='view_createReplayConversation' buttonIcon='plus'
+                title='#i18n{chatbotrecorder.manage_replayconversations.buttonAdd}' />
+        </@tform>
+    </@boxHeader>
+    <@boxBody>
+        <@messages infos=infos />
+        <@paginationAdmin paginator=paginator combo=1 />
+        <@table>
+            <@tr>
+                <@th>#i18n{chatbotrecorder.manage_replayconversations.columnUserMsg}</@th>
+                <@th>#i18n{chatbotrecorder.manage_replayconversations.columnBotResponse}</@th>
+                <@th>#i18n{chatbotrecorder.manage_replayconversations.columnStatus}</@th>
+                <@th>#i18n{chatbotrecorder.manage_replayconversations.columnIdReplay}</@th>
+                <@th>#i18n{portal.util.labelActions}</@th>
+            </@tr>
+            <@tableHeadBodySeparator />
+            <#list replayconversation_list as replayconversation>
+                <@tr>
+                    <@td>
+                        ${replayconversation.userMsg}
+                    </@td>
+                    <@td>
+                        ${replayconversation.botResponse}
+                    </@td>
+                    <@td>
+                        ${replayconversation.status}
+                    </@td>
+                    <@td>
+                        ${replayconversation.idReplay}
+                    </@td>
+                    <@td>
+                        <@aButton
+                            href='jsp/admin/plugins/chatbotrecorder/ManageReplayConversations.jsp?view=modifyReplayConversation&id=${replayconversation.id}'
+                            buttonIcon='pencil' />
+                        <@aButton
+                            href='jsp/admin/plugins/chatbotrecorder/ManageReplayConversations.jsp?action=confirmRemoveReplayConversation&id=${replayconversation.id}'
+                            buttonIcon='trash' color='danger' />
+                    </@td>
+                </@tr>
+            </#list>
+        </@table>
+        <@paginationAdmin paginator=paginator />
+    </@boxBody>
+</@box>

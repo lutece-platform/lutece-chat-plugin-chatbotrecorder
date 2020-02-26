@@ -1,0 +1,27 @@
+<#include "chatbotrecordermanager_tabs.html" />
+<@tabs2 tab="replay" />
+<@box>
+	<@boxHeader title='#i18n{chatbotrecorder.create_replay.title}' />
+	<@boxBody>
+		<@tform name='create_replay' action='jsp/admin/plugins/chatbotrecorder/ManageReplays.jsp'>
+			<@messages errors=errors />
+			<@formGroup labelKey='#i18n{chatbotrecorder.create_replay.labelLastRun}'
+				helpKey='#i18n{chatbotrecorder.create_replay.labelLastRun.help}'>
+				<@input type='text' name='last_run' value='${replay.lastRun!\' \'}' />
+			</@formGroup>
+			<@formGroup labelKey='#i18n{chatbotrecorder.create_replay.labelStatus}'
+				helpKey='#i18n{chatbotrecorder.create_replay.labelStatus.help}'>
+				<@input type='text' name='status' value='${replay.status!\' \'}' />
+			</@formGroup>
+			<@formGroup labelKey='#i18n{chatbotrecorder.create_replay.labelNbrErr}'
+				helpKey='#i18n{chatbotrecorder.create_replay.labelNbrErr.help}'>
+				<@input type='text' name='nbr_err' value='${replay.nbrErr!\' \'}' />
+			</@formGroup>
+			<@formGroup labelKey='#i18n{chatbotrecorder.create_replay.labelIdScenario}'
+				helpKey='#i18n{chatbotrecorder.create_replay.labelIdScenario.help}'>
+				<@input type='text' name='id_scenario' value='${replay.idScenario!\' \'}' />
+			</@formGroup>
+			<@actionButtons button1Name="action_createReplay" button2Name="view_manageReplay" />
+		</@tform>
+	</@boxBody>
+</@box>

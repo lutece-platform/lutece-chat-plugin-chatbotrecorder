@@ -1,0 +1,46 @@
+<#include "chatbotrecordermanager_tabs.html" />
+<@tabs2 tab="conversation" />
+<@box>
+    <@boxHeader title='#i18n{chatbotrecorder.manage_conversation.title}' boxTools=true>
+        <@tform class='form-inline pull-right' name='manage_conversation'
+            action='jsp/admin/plugins/chatbotrecorder/ManageConversations.jsp'>
+            <@button type='submit' name='view_createConversation' buttonIcon='plus'
+                title='#i18n{chatbotrecorder.manage_conversations.buttonAdd}' />
+        </@tform>
+    </@boxHeader>
+    <@boxBody>
+        <@messages infos=infos />
+        <@paginationAdmin paginator=paginator combo=1 />
+        <@table>
+            <@tr>
+                <@th>#i18n{chatbotrecorder.manage_conversations.columnUserMsg}</@th>
+                <@th>#i18n{chatbotrecorder.manage_conversations.columnBotResponse}</@th>
+                <@th>#i18n{chatbotrecorder.manage_conversations.columnIdScenario}</@th>
+                <@th>#i18n{portal.util.labelActions}</@th>
+            </@tr>
+            <@tableHeadBodySeparator />
+            <#list conversation_list as conversation>
+                <@tr>
+                    <@td>
+                        ${conversation.userMsg}
+                    </@td>
+                    <@td>
+                        ${conversation.botResponse}
+                    </@td>
+                    <@td>
+                        ${conversation.idScenario}
+                    </@td>
+                    <@td>
+                        <@aButton
+                            href='jsp/admin/plugins/chatbotrecorder/ManageConversations.jsp?view=modifyConversation&id=${conversation.id}'
+                            buttonIcon='pencil' />
+                        <@aButton
+                            href='jsp/admin/plugins/chatbotrecorder/ManageConversations.jsp?action=confirmRemoveConversation&id=${conversation.id}'
+                            buttonIcon='trash' color='danger' showTitle=false />
+                    </@td>
+                </@tr>
+            </#list>
+        </@table>
+        <@paginationAdmin paginator=paginator />
+    </@boxBody>
+</@box>
